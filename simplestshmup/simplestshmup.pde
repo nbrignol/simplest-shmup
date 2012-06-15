@@ -1,39 +1,27 @@
-PImage hero;
+
 PImage fond;
-PImage arme;
 
 int fondPosition = 800;
 
+Hero hero;
 Mechant[] listeDeMechants;
-
-Mechant mechant;
-Mechant mechant2;
-Mechant mechant3;
 
 String mode="bienvenue";
 
 int score=0;
-
-boolean attaque;
 
 void setup() {
   size(800, 600);
 
   frameRate(24);
   noSmooth();
-  hero = loadImage("media/hero.png");
   fond = loadImage("media/galaxy.jpg");
-  arme = loadImage("media/ball.png");
-  
-  //liste ? Array liste ? en dur ?
+  hero = new Hero();
+
   listeDeMechants = new Mechant[3];
   listeDeMechants[0] = new Mechant();
   listeDeMechants[1] = new Mechant();
   listeDeMechants[2] = new Mechant();
-      
-  mechant = new Mechant();
-  mechant2 = new Mechant();
-  mechant3 = new Mechant();
   
   modeBienvenue();
 }
@@ -45,7 +33,7 @@ void modeBienvenue(){
   smooth();
   cursor(ARROW);
   
-   textSize(60);
+  //textSize(60);
 }
 
 void modeJeu(){
@@ -53,16 +41,15 @@ void modeJeu(){
   mode="jeu";
   
   noCursor();
-  
-   textSize(15);
+  textSize(15);
 }
 
 
 void dessineBienvenue(){
  fill(0);
 
- text("Bienvenue dans mon jeu !", 300, 300); 
- text("Cliquez sur la souris !", 350, 350); 
+ text("Bienvenue dans mon jeu !", 10, 10); 
+ text("Cliquez sur la souris !", 60, 10); 
  
 }
 
@@ -96,11 +83,8 @@ void dessineFond(){
 }
 
 void dessineHero(){
-  image(hero, mouseX, mouseY+random(3));
-  
-  if(attaque){
-    image(arme, mouseX + 100, mouseY);
-  }
+  hero.avance();
+  hero.dessine();  
 }
 
 void dessineMechants(){
@@ -110,13 +94,15 @@ void dessineMechants(){
     unMechant.dessine();
   }
   
-  /*
-  mechant.avance();
-    mechant2.avance();
-      mechant3.avance();
-  mechant.dessine();
-   mechant2.dessine();
-    mechant3.dessine();*/
+}
+
+void verifieCollisions(){
+  for(Mechant unMechant : listeDeMechants){
+    
+    hero.verifieCollisionAvecMechant(unMechant);
+    unMechant.verifieCollisionAvecMissile(hero);
+    
+  }
 }
 
 void draw(){
@@ -124,7 +110,9 @@ void draw(){
     dessineBienvenue();
   }
   
-  if (mode=="jeu"){  
+  if (mode=="jeu"){ 
+    verifieCollisions();
+    
     dessineFond();
     dessineBandeau();
     dessineHero();
@@ -139,9 +127,8 @@ void draw(){
 void mouseClicked() {
    if (mode=="bienvenue"){
      modeJeu();
-   }
-  
-  
-   attaque=true;
+   } else if (mode=="jeu"){
+     hero.attaque();
+  }
 }
 
