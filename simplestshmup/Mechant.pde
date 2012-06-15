@@ -14,19 +14,25 @@ class Mechant {
   boolean explosion_en_cours=false;
   int temps_explosion=0;
   
+  Mechant(){
+    replaceMechant();
+  }
+  
   void replaceMechant(){
     position_verticale = (int) random(800);
     position_horizontale = 800 + (int) random(200);
   }
   
   void calculeZigZag(){
-     float amplitude = 30;
+    //a voir
+     float amplitude = niveauActuel *5;
      int deplacement = (int) (sin(position_horizontale/amplitude) * amplitude);
      position_verticale = position_verticale + deplacement;
   }
 
   void avanceExplosion(){
    temps_explosion++;
+   
    //simplifier !!
    int index = (temps_explosion % 15) / 5 + 1;
    imageExplosion = loadImage("media/explosion"+index+".png");
@@ -53,22 +59,26 @@ class Mechant {
       replaceMechant();
       vitesseDuMechant = vitesseDuMechant + 1;
       score ++;
-
-      if (vitesseDuMechant > 30) {
-        vitesseDuMechant = 30;
-      }
     }
   }
 
   void dessine() {
     if (explosion_en_cours) {
-      image(imageExplosion, position_horizontale, position_verticale);
+      image(imageExplosion, position_horizontale, position_verticale);  
+   
+       if (temps_explosion==1){
+          fill(255, 255, 255, 200);
+          rect(0, 0, 800, 640);
+      }
+      
     } else {
       image(imageDuMechant, position_horizontale, position_verticale);
     }
     
-    
-    
+  }
+  
+  void explose(){
+    explosion_en_cours = true;
   }
   
   
@@ -82,11 +92,11 @@ class Mechant {
           println("Kaboum !");
           
           hero.attaque_en_cours = false;
-          explosion_en_cours = true;
-          score = score + 100;
-          
-          
-          
+          explose();
+          score = score + niveauActuel * 100;
+
+          vitesseDuMechant ++;
+          niveauActuel ++;
       }
       
     }

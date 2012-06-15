@@ -9,7 +9,8 @@ class Hero{
   int position_verticale_missile = 0;
   int position_horizontale_missile = 0;
   
-  
+  boolean blessure = false;
+  int nombre_de_vies_restantes = 3;
   
   void avance(){
     //suis la souris
@@ -23,17 +24,41 @@ class Hero{
   }
   
   void dessine(){
+    
+    if (blessure){
+      fill(255, 0, 0);
+      rect(0, 0, 800, 35);
+      blessure = false;
+    }
+    
     image(imageDuHero, position_horizontale, position_verticale);
 
     if (attaque_en_cours) {
        image(imageDuMissile, position_horizontale_missile, position_verticale_missile);
     }
+    
+    
 
   }
   
   void verifieCollisionAvecMechant(Mechant mechant){
     
+    boolean horizontal = (mechant.position_horizontale > position_horizontale) && mechant.position_horizontale < position_horizontale + mechant.largeur_mechant;
+    boolean vertical   = (mechant.position_verticale > position_verticale) && mechant.position_verticale < position_verticale + mechant.hauteur_mechant;
+      
+      if (! mechant.explosion_en_cours && horizontal && vertical) {
+          println("Aie !");
+          
+          score = score - 100;
+          nombre_de_vies_restantes = nombre_de_vies_restantes - 1;
+          
+          blessure = true;
+          
+          mechant.explose();
+      }
+      
   }
+
   
   void attaque(){
     println("Hero attaque!");
