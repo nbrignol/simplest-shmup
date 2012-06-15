@@ -2,6 +2,8 @@ PImage hero;
 PImage fond;
 PImage arme;
 
+int fondPosition = 800;
+
 Mechant[] listeDeMechants;
 
 Mechant mechant;
@@ -82,7 +84,15 @@ void dessineBandeau(){
 }
 
 void dessineFond(){
-  image(fond, 0, 0);
+  background(0);
+  image(fond, fondPosition, 0);
+
+
+  fondPosition-=3;
+  
+  if (fondPosition < -800){
+    fondPosition = 800;
+  }
 }
 
 void dessineHero(){
@@ -100,13 +110,13 @@ void dessineMechants(){
     unMechant.dessine();
   }
   
-  
+  /*
   mechant.avance();
     mechant2.avance();
       mechant3.avance();
   mechant.dessine();
    mechant2.dessine();
-    mechant3.dessine();
+    mechant3.dessine();*/
 }
 
 void draw(){
