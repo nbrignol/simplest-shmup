@@ -25,7 +25,7 @@ class Mechant {
   
   void calculeZigZag(){
     //a voir
-     float amplitude = niveauActuel *5;
+     float amplitude = niveauActuel *2;
      int deplacement = (int) (sin(position_horizontale/amplitude) * amplitude);
      position_verticale = position_verticale + deplacement;
   }
@@ -66,10 +66,7 @@ class Mechant {
     if (explosion_en_cours) {
       image(imageExplosion, position_horizontale, position_verticale);  
    
-       if (temps_explosion==1){
-          fill(255, 255, 255, 200);
-          rect(0, 0, 800, 640);
-      }
+       
       
     } else {
       image(imageDuMechant, position_horizontale, position_verticale);

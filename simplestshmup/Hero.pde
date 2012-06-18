@@ -27,7 +27,7 @@ class Hero{
     
     if (blessure){
       fill(255, 0, 0);
-      rect(0, 0, 800, 35);
+      rect(0, 0, 800, 600);
       blessure = false;
     }
     
@@ -53,7 +53,6 @@ class Hero{
           nombre_de_vies_restantes = nombre_de_vies_restantes - 1;
           
           blessure = true;
-          
           mechant.explose();
       }
       

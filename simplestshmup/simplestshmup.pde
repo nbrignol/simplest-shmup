@@ -1,6 +1,7 @@
+PImage fondTitre;
 PImage fond;
-
-int fondPosition = 800;
+int fond1Position = 0;
+int fond2Position = 800;
 
 Hero hero;
 Mechant[] listeDeMechants;
@@ -15,7 +16,9 @@ void setup() {
   frameRate(24);
   smooth();
   
-  fond = loadImage("media/galaxy.jpg");
+  fondTitre = loadImage("media/galaxy.jpg");
+  fond = loadImage("media/etoiles.jpg");
+  
   prepareNouvellePartie();
   modeBienvenue();
 }
@@ -58,7 +61,7 @@ void modeGameover(){
 }
 
 void dessineBienvenue(){
- image(fond, 0, 0); 
+ image(fondTitre, 0, 0); 
  fill(250);
  textSize(60);
  text("Bienvenue dans mon jeu !", 30, 300); 
@@ -70,7 +73,7 @@ void dessineBienvenue(){
 }
 
 void dessineGameover(){
- image(fond, 0, 0); 
+ image(fondTitre, 0, 0); 
   
  fill(250);
  
@@ -93,14 +96,18 @@ void dessineBandeau(){
 
 void dessineFond(){
   background(0);
-  image(fond, fondPosition, 0);
+  image(fond, fond1Position, 0);
+  image(fond, fond2Position, 0);
 
-  //TODO boucle 2 images
-  //fait avancer le fond
-  fondPosition = fondPosition - 3;
+  fond1Position = fond1Position - 3;
+  fond2Position = fond2Position - 3;
   
-  if (fondPosition < -800){
-    fondPosition = 800;
+  if (fond1Position < -800){
+    fond1Position = 800;
+  }
+  
+  if (fond2Position < -800){
+    fond2Position = 800;
   }
 }
 
@@ -153,14 +160,16 @@ void draw(){
   }
 }
 
-void mouseClicked() {
+/* *************
+EVENEMENT SOURIS
+**************** */
+
+void mousePressed() {
    if (mode=="bienvenue"){
      modeJeu();
    } else if (mode=="jeu"){
      hero.attaque();
   } else if (mode=="gameover"){
-    //TODO pause...
-    
     prepareNouvellePartie();
     modeBienvenue();
   }
