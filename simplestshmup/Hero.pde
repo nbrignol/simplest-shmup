@@ -1,3 +1,7 @@
+//****************************
+//La classe "Hero" represente le vaisseau du joueur
+//qui suit la souris et tire des missiles.
+//*****************************
 class Hero{
   int position_verticale = 0;
   int position_horizontale = 0;

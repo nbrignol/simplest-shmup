@@ -1,4 +1,7 @@
-
+//****************************
+//La classe "Mechant" represente UN SEUL vaisseau méchant, 
+//qui avance de plus en plus vite.
+//*****************************
 class Mechant {
   PImage imageDuMechant = loadImage("media/villain.png");
   PImage imageExplosion = loadImage("media/explosion1.png");
