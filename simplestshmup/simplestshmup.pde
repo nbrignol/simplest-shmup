@@ -236,7 +236,7 @@ void verifieCollisions() {
 
   //si le hero à été touché trop de fois, 
   //on affiche l'ecran de fin.
-  if (hero.nombre_de_vies_restantes == 0) {
+  if (hero.nombre_de_vies_restantes <= 0) {
     modeGameover();
   }
 }
